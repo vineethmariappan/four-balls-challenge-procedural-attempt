@@ -3,8 +3,8 @@ package com.gradle.processing;
 import processing.core.PApplet;
 
 public class FourBallsChallenge extends PApplet{
-    public static final int WIDTH = 640;
-    public static final int HEIGHT = 480;
+    public static final int FRAME_WIDTH = 640;
+    public static final int FRAME_HEIGHT = 480;
     public static final int BALL_DIAMETER = 10;
     public static final int RGB1 = 255;
     public static final int NO_OF_BALLS = 4;
@@ -17,9 +17,13 @@ public class FourBallsChallenge extends PApplet{
 
     private void computeBallsYPositionForTheFrameSize() {
         for(int ball=0;ball< NO_OF_BALLS;ball++){
-            ballsPositionY[ball]*=(HEIGHT/5);
+            computeBallYPositionForTheFrameHeight(ballsPositionY,ball);
         }
 
+    }
+
+    private void computeBallYPositionForTheFrameHeight(int[] ballsPositionY, int ball) {
+        ballsPositionY[ball]=ballsPositionY[ball]*FRAME_HEIGHT /(NO_OF_BALLS+1);
     }
 
     public static void main(String[] args) {
@@ -29,7 +33,7 @@ public class FourBallsChallenge extends PApplet{
     @Override
     public void settings() {
         super.settings();
-        size(WIDTH, HEIGHT);
+        size(FRAME_WIDTH, FRAME_HEIGHT);
     }
     @Override
     public void setup() {
@@ -45,7 +49,7 @@ public class FourBallsChallenge extends PApplet{
         background(RGB1);
     }
     private void drawFourBalls(){
-        for(int ball = 0;ball<4;ball++){
+        for(int ball = 0;ball<NO_OF_BALLS;ball++){
             drawBall(ballsPositionX[ball],ballsPositionY[ball]);
             ballsPositionX[ball]+=ballsSpeed[ball];
         }
